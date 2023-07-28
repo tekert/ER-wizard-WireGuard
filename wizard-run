@@ -16,7 +16,8 @@ wgsetupscriptfile="/config/scripts/post-config.d/wireguard_setup.sh"
 wgautoupdatecronjob="/etc/cron.daily/wireguard_autoupdate"
 log="${wgdir}wireguard-wizard.log"
 wgpkgapi="https://api.github.com/repos/WireGuard/wireguard-vyatta-ubnt/releases/latest"
-wgwizapi="https://api.github.com/repos/vchrizz/ER-wizard-WireGuard/releases/latest"
+#wgwizapi="https://api.github.com/repos/vchrizz/ER-wizard-WireGuard/releases/latest"
+wgwizapi="https://api.github.com/repos/tekert/ER-wizard-WireGuard/releases/latest"
 
 #
 # DO NOT EDIT BELOW HERE !
