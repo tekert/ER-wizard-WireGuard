@@ -193,12 +193,9 @@ installwireguard () {
         eval "interfaces=($($cli listActiveNodes $wgcfg))"
         $cmd begin
         for interface in "${interfaces[@]}"; do
-            $cmd delete $wgcfg "$interface" route-allowed-ips
             $cmd set $wgcfg "$interface" route-allowed-ips false
+            $cmd commit
         done
-        $cmd commit
-        # TODO(tekert): there are errors when deleting nodes from "/opt/vyatta/sbin/vyatta-cfg-cmd-wrapper"
-        # TODO(tekert): error is "This script must be executed from vyatta configuration system."
         $cmd delete $wgcfg
         $cmd commit
         rmmod wireguard
@@ -212,8 +209,8 @@ installwireguard () {
         $cmd end
     else
         echo "$(date +%Y-%m-%d/%H:%M:%S.%N) [installer] Installing WireGuard for $pkgvariant ..."
-        # if we have the previous config from wireguard on config.boot then:
-        # TODO: test this
+        # if we have the previous config from wireguard on config.boot (currently loaded config) then:
+        # TODO(tekert): test this
         eval "interfaces=($($cli listActiveNodes $wgcfg))"
         if [ "${interfaces[0]}" == "wg0" ]; then
             $cmd begin
@@ -518,6 +515,7 @@ apply () {
         name[${pubkey,,}]=1
     done
 
+    # We delete the node before a set to force it and not get a "The specified configuration node already exists" message on commit.
     if [ $ret == 0 ]; then
         temp=$(mktemp)
         (
