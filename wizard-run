@@ -11,6 +11,12 @@
 # Works on all EdgeRouter and EdgePoint devices (EdgeOS versions 1.9.0+ and 2.0+)
 #
 
+# TODO: Another way to do it (test): https://docs.vyos.io/en/equuleus/automation/command-scripting.html
+# make sure script is run as group vyattacfg
+# if [ 'vyattacfg' != $(id -ng) ]; then
+#     exec sg vyattacfg -c "$0 $@"
+# fi
+
 wgdir="/config/user-data/wireguard/"
 wgsettings="${wgdir}wgsettings.json"
 wgsetupscriptfile="/config/scripts/post-config.d/wireguard_setup.sh"
