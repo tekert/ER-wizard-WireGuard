@@ -191,12 +191,15 @@ installwireguard () {
             $cmd set $wgcfg "$interface" route-allowed-ips false
         done
         $cmd commit
+        # TODO(tekert): there are errors when deleting nodes from "/opt/vyatta/sbin/vyatta-cfg-cmd-wrapper"
+        # TODO(tekert): error is "This script must be executed from vyatta configuration system."
         $cmd delete $wgcfg
         $cmd commit
         rmmod wireguard
         dpkg -i ${pkgvariant}*.deb
         modprobe wireguard
         # The loaded configuration becomes the working configuration and must be committed before it becomes the active configuration.
+        # config file is saved
         $cmd load
         $cmd commit
         # No need to save, config is restored from file (load) then commited to active config.
@@ -208,6 +211,7 @@ installwireguard () {
         eval "interfaces=($($cli listActiveNodes $wgcfg))"
         if [ "${interfaces[0]}" == "wg0" ]; then
             $cmd begin
+            # TODO(tekert): same here
             $cmd delete $wgcfg
             $cmd commit
             dpkg -i ${pkgvariant}*.deb
