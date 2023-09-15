@@ -221,6 +221,7 @@ installwireguard () {
             modprobe wireguard
             $cmd load
             $cmd commit
+            # No need to save here either.
             $cmd end
         else
             dpkg -i ${pkgvariant}*.deb
