@@ -36,6 +36,7 @@ INPUT=$2
 # vyatta configuration node for wireguard
 wgcfg="interfaces wireguard"
 
+# Vyatta DOC: https://docs.vyos.io/en/equuleus/cli.html
 cmd=/opt/vyatta/sbin/vyatta-cfg-cmd-wrapper
 run=/opt/vyatta/bin/vyatta-op-cmd-wrapper
 cli=cli-shell-api
