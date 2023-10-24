@@ -677,8 +677,6 @@ apply () {
                                 break 2
                             fi
                         done
-                    else
-                        $cmd delete $wgcfg ${interfaces[0]} peer "${pubkeys[i]}" allowed-ips
                     fi
                     if [ $ret == 1 ]; then
                         echo "something failed, check log!" >> $log
